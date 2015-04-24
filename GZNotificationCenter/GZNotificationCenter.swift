@@ -45,7 +45,7 @@ public class GZNotificationCenter {
         case .CFNotificationCenter:
             
             let center = CFNotificationCenterGetDarwinNotifyCenter()
-            CFNotificationCenterAddObserver(center, nil, GZCFNotificationCallBackBlock, aName, nil, CFNotificationSuspensionBehavior.DeliverImmediately)
+            CFNotificationCenterAddObserver(center, unsafeAddressOf(observer), GZCFNotificationCallBackBlock, aName, nil, CFNotificationSuspensionBehavior.DeliverImmediately)
             
             NSNotificationCenter.defaultCenter().addObserver(observer, selector: aSelector, name: aName, object: nil)
         }
@@ -71,5 +71,19 @@ public class GZNotificationCenter {
         
     }
     
+    
+    func removeObserver(agentType:GZNotificationCenterAgentType, observer: AnyObject, name aName:String){
+        
+        switch agentType {
+            
+        case .CFNotificationCenter:
+            
+            let center = CFNotificationCenterGetDarwinNotifyCenter()
+            CFNotificationCenterRemoveObserver(center, unsafeAddressOf(observer), aName, nil)
+            
+            NSNotificationCenter.defaultCenter().removeObserver(observer)
+        }
+        
+    }
     
 }
