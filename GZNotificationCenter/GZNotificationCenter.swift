@@ -71,6 +71,11 @@ public class GZNotificationCenter {
         
     }
     
+    public func removeObserver(observer: AnyObject, name aName:String){
+        
+        self.removeObserver(.CFNotificationCenter, observer: observer, name: aName)
+        
+    }
     
     func removeObserver(agentType:GZNotificationCenterAgentType, observer: AnyObject, name aName:String){
         
